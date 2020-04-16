@@ -2,7 +2,7 @@
 
 var="$1"	#The first option argument is stored here
 flag=		#In case the first option is '-r' then the second option is stored here
-lock=0		#Lock used to know the first time recursive() is called 
+
 
 find(){
 #Find is used to know if the file exists
