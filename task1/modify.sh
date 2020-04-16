@@ -66,22 +66,16 @@ classify(){
 recursive(){
 #This function is called in a recursive way as it has to change all files in a given directory
 #If the script is called with sed then it enters the first conditional estatement
-if [[ "$flag" == "sed" ]]; then
-	if [[ "$lock" == 0 ]]; then
-		#This is used to set the pattern value the first time this is called
-		#pattern=
-		pattern="$1"
-		lock=1
+if [[ "$flag" != \-* ]]; then
+	pattern="$flag"
+	if [ -d "$1" ];then
+	#Check if the file is a directory, calls recursive() on this file and execute the sed pattern
+		for file in "$1"/*; do
+			recursive "$file"
+			mv "$file" $(echo "$file" | sed "$pattern") > /dev/null 2>&1
+		done
 	else
-		if [ -d "$1" ];then
-		#Check if the file is a directory, calls recursive() on this file and execute the sed pattern
-			for file in "$1"/*; do
-				recursive "$file"
-				sed "$pattern" "$file"
-			done
-		else
-			sed "$pattern" "$1"
-		fi
+		mv "$1" $(echo "$1" | sed "$pattern") > /dev/null 2>&1
 	fi
 else
 	for file in "$1"/*; do
@@ -137,7 +131,7 @@ modify.sh -h
 		flag="$1"
 		shift
 		for recur in "$@";do
-			if [[ "$flag" != "sed" ]]; then
+			if [[ "$flag" != \-* ]]; then
 				find "$1"
 			fi
 			recursive "$1"
