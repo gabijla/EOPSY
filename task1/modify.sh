@@ -20,9 +20,9 @@ fi
 
 lower(){
 #Used to lowerize the names of the file, extracting extension, name and directory
-	ext="${1##*.}"
-	name=$(basename "${1%.*}")
-	dir=$(dirname "$1")
+	ext="${1##*.}"				#Used to extract the file extension
+	name=$(basename "${1%.*}")		#Used to extract the file name
+	dir=$(dirname "$1")			#Used to get the file directory
 
 	if [[ "$(basename $ext)" == "$name" ]]; then
 		#In case the file has no extension
@@ -34,9 +34,9 @@ lower(){
 
 uper(){
 #Used to uppercase the name of the file, extracting extension, name and directory
-	ext="${1##*.}"
-	name=$(basename "${1%.*}")
-	dir=$(dirname "$1")
+	ext="${1##*.}"				#Used to extract the file extension
+	name=$(basename "${1%.*}")		#Used to extract the file name
+	dir=$(dirname "$1")			#Used to get the file directory
 
 	if [[ "$(basename $ext)" == "$name" ]]; then
 		#In case the file has no extension
