@@ -1,0 +1,11 @@
+We have to modify the "commands" and "memory.conf" files, the results are stored in the "tracefile" file. Also a graphical simulator is provided to observe the memory mapping simulation.
+
+According the task, We have to map 8 pages of physical memory to the first 8 pages of virtual memory. We have to read from one virtual memory address on each of 64 virtuals pages given, then predict which virtual memory addresses cause page faults, finally explain the replacement algorithm.
+
+The page size is set to 64, so the addresses of each virtual oage will be (64*i +1), where i goes from 0 to 63. I changed the addressrandix value to 10 to obtain decimal values.
+
+The page fault will occurs when there is no more physical memory space, and a virutal memory address maps to a physical memory address. 
+
+As we can observe in the tracefile and the graphical simulator, the las mapped page is the 31st since is the last one of the 32 physical pages. So the 32nd returns a page fault the physical page is assigned as -1.
+
+The replacement algorithm used is First-In First-Out FIFO. This is the simplest page replacement algorithm. In this algorithm, the operating system keeps track of all pages in the memory in a queue, the oldest page is in the front of the queue. When a page needs to be replaced page in the front of the queue is selected for removal.
