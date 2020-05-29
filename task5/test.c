@@ -7,10 +7,7 @@
 #include <semaphore.h>
 
 
-#define N1 1	//Women barber
-#define N2 1	//Men barber
-#define N3 0	//Both barber
-#define M 4	//Chairs number
+
 #define C 5	//Customers number
 
 //Semaphores
@@ -24,50 +21,15 @@ sem_t sleeping_B;
 sem_t wait_B;
 
 //Variables
-int barberWC[N1];
-int barberMC[N2];
-int barberBC[N3];
-int clients[C];
+int N1, N2, N3, M;
+
 bool done = false;
 
 //Threads
-pthread_t barberThreadW[N1];
-pthread_t barberThreadM[N2];
-pthread_t barberThreadB[N3];
-pthread_t clientThread[C];
+
 
 void init(){
-    //Barber ids arrays
-    for (int i = 0; i < N1; i++)
-    {
-        barberWC[i] = i;
-    }
 
-    for (int i = 0; i < N2; i++)
-    {
-        barberMC[i] = i;
-    }
-
-    for (int i = 0; i < N3; i++)
-    {
-        barberBC[i] = i;
-    }
-
-    //Client ids array
-    for (int i = 0; i < C; i++)
-    {
-        clients[i] = i;
-    }
-
-    //Semaphores
-    sem_init(&waiting_room, 0, M);
-    sem_init(&chair_W, 0, N1);
-    sem_init(&chair_M, 0, N2);
-    sem_init(&chair_B, 0, N3);
-    sem_init(&sleeping_W, 0, 0);
-    sem_init(&sleeping_M, 0, 0);
-    sem_init(&sleeping_B, 0, 0);
-    sem_init(&wait_B, 0, 0);
 };
 
 void *client(void *id){
@@ -258,10 +220,56 @@ void *barberB(void *id){
 
 int main(){      
     srand(time(NULL));
-    
-    //Initialization of the semaphores and id arrays
-    init();
-    
+    int barberWC[N1];
+    int barberMC[N2];
+    int barberBC[N3];
+    int clients[C];
+    pthread_t barberThreadW[N1];
+    pthread_t barberThreadM[N2];
+    pthread_t barberThreadB[N3];
+    pthread_t clientThread[C];
+
+    printf("Please type number of women barber:\n");
+    scanf("%d", &N1);
+    printf("Please type number of men barber:\n");
+    scanf("%d", &N2);
+    printf("Please type number of both barber:\n");
+    scanf("%d", &N3);
+    printf("Please type number of chairs:\n");
+    scanf("%d", &M);
+
+
+    //Barber ids arrays
+    for (int i = 0; i < N1; i++)
+    {
+        barberWC[i] = i;
+    }
+
+    for (int i = 0; i < N2; i++)
+    {
+        barberMC[i] = i;
+    }
+
+    for (int i = 0; i < N3; i++)
+    {
+        barberBC[i] = i;
+    }
+
+    //Client ids array
+    for (int i = 0; i < C; i++)
+    {
+        clients[i] = i;
+    }
+
+    //Semaphores
+    sem_init(&waiting_room, 0, M);
+    sem_init(&chair_W, 0, N1);
+    sem_init(&chair_M, 0, N2);
+    sem_init(&chair_B, 0, N3);
+    sem_init(&sleeping_W, 0, 0);
+    sem_init(&sleeping_M, 0, 0);
+    sem_init(&sleeping_B, 0, 0);
+    sem_init(&wait_B, 0, 0);    
 
     //Threads creation	
     for (int i = 0; i < N1; i++)
